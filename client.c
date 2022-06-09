@@ -6,20 +6,16 @@
 
 static void	charToBin(int pid, char c)
 {
-	int	i = 8;
+	int	i = 0;
 
-	while (--i >= 0)
+	while (i < 8)
 	{
 		if (c >> i & 1)
-		{
 			kill(pid, SIGUSR2);
-			usleep(1000);
-		}
 		else
-		{
 			kill(pid, SIGUSR1);
-			usleep(1000);
-		}
+		usleep(1000);
+		i++;
 	}
 	return ;
 }
@@ -34,18 +30,6 @@ static void	strToBin(int pid, char *str)
 	}
 	return ;
 }
-/*	{
-		printf("a");
-		kill(pid, SIGUSR1);
-		usleep(100);
-	}
-	else
-	{
-		kill(pid, SIGUSR2);
-		usleep(100);
-	}
-	return ;
-}*/
 
 int	main(int argc, char **argv)
 {
@@ -53,7 +37,7 @@ int	main(int argc, char **argv)
 		
 	if (argc != 3 || !ft_strlen(argv[2]))
 		return (0);
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	strToBin(pid, argv[2]);
 	return (0);
 }
