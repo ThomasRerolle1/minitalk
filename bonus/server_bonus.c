@@ -1,4 +1,4 @@
-#include "./libft/libft.h"
+#include "../libft/libft.h"
 #include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -26,6 +26,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 		chr.current_bit = 0;
 		chr.character = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 	return ;
 }
 
@@ -38,6 +39,7 @@ int	main()
 	ft_putchar_fd('\n', 1);
 	s.sa_handler = SIG_DFL;
 	sigemptyset(&s.sa_mask);
+
 	s.sa_sigaction = action;
 	s.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &s, NULL);
