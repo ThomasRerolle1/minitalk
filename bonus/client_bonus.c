@@ -57,6 +57,6 @@ int	main(int argc, char **argv)
 		return (0);
 	pid = ft_atoi(argv[1]);
 	signal(SIGUSR1, confirmation);
-	strToBin(pid, argv[2]);
+	str_to_bin(pid, argv[2]);
 	return (0);
 }
