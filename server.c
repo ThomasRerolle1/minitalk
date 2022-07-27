@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: trerolle <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/02 21:46:26 by trerolle          #+#    #+#             */
+/*   Updated: 2021/12/03 11:42:04 by trerolle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./libft/libft.h"
 #include <signal.h>
 #include <sys/types.h>
@@ -6,18 +18,16 @@
 
 struct s_character{
 	char	character;
-	int	current_bit;
+	int		current_bit;
 };
-
 
 static void	action(int sig, siginfo_t *info, void *context)
 {
-	(void)context;
-	(void)info;
 	static struct s_character	chr = {0, 0};
 
-	
-	if (sig  == SIGUSR2)
+	(void)context;
+	(void)info;
+	if (sig == SIGUSR2)
 		chr.character |= 1 << chr.current_bit;
 	chr.current_bit++;
 	if (chr.current_bit == 8)
@@ -29,10 +39,10 @@ static void	action(int sig, siginfo_t *info, void *context)
 	return ;
 }
 
-int	main()
+int	main(void)
 {
 	struct sigaction	s;
-	
+
 	ft_putstr_fd("Server PID : ", 1);
 	ft_putnbr_fd(getpid(), 1);
 	ft_putchar_fd('\n', 1);

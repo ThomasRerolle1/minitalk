@@ -46,7 +46,8 @@ client_bonus: bonus/client_bonus.o libft
 
 clean:
 	@rm -rf $(OBJECTS)
-	@rm -rf $(OBJECTS_BONUS)
+	@rm -rf ./bonus/client_bonus.o
+	@rm -rf ./bonus/server_bonus.o
 	@make -C libft clean
 
 fclean: clean
