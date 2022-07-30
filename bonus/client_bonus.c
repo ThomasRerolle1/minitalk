@@ -58,7 +58,7 @@ int	main(int argc, char **argv)
 	if (argc != 3 || !ft_strlen(argv[2]))
 		return (0);
 	pid = ft_atoi(argv[1]);
-	signal(SIGUSR1, confirmation);
+	signal(SIGUSR2, confirmation);
 	str_to_bin(pid, argv[2]);
 	return (0);
 }
