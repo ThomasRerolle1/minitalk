@@ -51,7 +51,7 @@ clean:
 	@make -C libft clean
 
 fclean: clean
-	@rm -rf server client server_bonus client_bonus libft/libft.a
+	@rm -rf server client server_bonus client_bonus libft/libft.a libft.a
 
 re: fclean all
 

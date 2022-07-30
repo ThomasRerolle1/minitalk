@@ -23,13 +23,12 @@ static void	char_to_bin(int pid, char c)
 	i = 0;
 	while (i < 8)
 	{
+		usleep(200);
 		if (c & (1 << i))
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
 		i++;
-		pause();
-		usleep(10);
 	}
 	return ;
 }
@@ -41,12 +40,15 @@ static void	str_to_bin(int pid, char *str)
 		char_to_bin(pid, *str);
 		str++;
 	}
+	char_to_bin(pid, '\0');
+	sleep(2);
 	return ;
 }
 
 void	confirmation(int sig)
 {
 	(void)sig;
+	ft_putendl_fd("message received!", 1);
 }
 
 int	main(int argc, char **argv)

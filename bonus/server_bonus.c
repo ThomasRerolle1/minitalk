@@ -19,25 +19,35 @@
 struct s_character{
 	char	character;
 	int		current_bit;
+	int		pid;
 };
 
 static void	action(int sig, siginfo_t *info, void *context)
 {
-	static struct s_character	chr = {0, 0};
+	static struct s_character	chr = {0, 0, 0};
 
+	if (chr.pid != info->si_pid)
+	{
+		chr.character = 0;
+		chr.current_bit = 0;
+		chr.pid = info->si_pid;
+	}
 	(void)context;
-	(void)info;
 	if (sig == SIGUSR2)
 		chr.character |= 1 << chr.current_bit;
 	chr.current_bit++;
 	if (chr.current_bit == 8)
 	{
+		if (chr.character == '\0')
+		{
+			ft_putstr_fd("\n", 1);
+			kill(info->si_pid, SIGUSR2);
+		}
 		ft_putchar_fd(chr.character, 1);
 		chr.current_bit = 0;
 		chr.character = 0;
+		usleep(100);
 	}
-	kill(info->si_pid, SIGUSR1);
-	return ;
 }
 
 int	main(void)
